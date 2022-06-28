@@ -1,28 +1,16 @@
 import gql from "graphql-tag";
 
-export const getBookById = gql`
-  query getBookById($id: ID!) {
-    book(id: $id) {
-      name
-      genre
-      author {
-        ...authorInfo
-      }
-    }
-  }
-`;
-
-export const getallpost = gql`
-  query getallpost{
-    getAllPost{
-      postId
-      postTitle
-      postContent
+export const getAllUser = gql`
+  query getAllUser{
+    getAllUser{
+      id
+      userName
+      age
+      address
     }
   }
 `;
 
 export default {
-    getallpost,
-  getBookById,
+  getAllUser,
 };
