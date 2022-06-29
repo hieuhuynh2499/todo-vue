@@ -18,10 +18,7 @@ export default class FormTodo extends Vue {
   newUserName:string = '';
 
   createNewUser() {
-    this.createUserNew({
-      vueIntance: this,
-      newUserName: this.newUserName,
-    })
+    this.createUserNew(this.newUserName)
     this.newUserName = ''
   }
 }

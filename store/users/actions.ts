@@ -3,7 +3,10 @@ import { getAllUser } from "../../apollo/queries/users.query";
 import { createUserNew } from "../../apollo/mutations/users.mutation";
 import { deleteUser } from "../../apollo/mutations/users.mutation";
 import { updateUser } from "../../apollo/mutations/users.mutation";
-export const actions: ActionTree<any, any> = {
+import { UserState } from "~/models/user.state";
+import { RootState } from "~/models/root.state";
+
+export const actions: ActionTree<UserState, RootState> = {
   async getAllUsers({ commit }): Promise<void> {
     let users;
     if(this.app.apolloProvider){
@@ -21,7 +24,7 @@ export const actions: ActionTree<any, any> = {
     commit("getAllUsers", users);
   },
 
-  async createUserNew ({commit}, { vueIntance , newUserName} :any): Promise<void> {
+  async createUserNew ({commit}, newUserName ): Promise<void> {
     let user = {
       age: 23,
       address: 'da nang',
@@ -29,14 +32,16 @@ export const actions: ActionTree<any, any> = {
     };
 
     try {
-      await vueIntance.$apolloProvider.defaultClient.mutate({
-        mutation: createUserNew,
-        variables: {
-          createUser : user
-        },
-      }).then(({ data }: any) => {
-        commit("createUser",data.createUserNew)
-      });
+      if(this.app.apolloProvider){
+        await this.app.apolloProvider.defaultClient.mutate({
+          mutation: createUserNew,
+          variables: {
+            createUser : user
+          },
+        }).then(({ data }: any) => {
+          commit("createUser",data.createUserNew)
+        });
+      }
     } catch (error: any) {
       throw new Error(error);
     }
