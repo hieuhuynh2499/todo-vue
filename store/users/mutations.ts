@@ -12,5 +12,10 @@ export const mutations: MutationTree<any> = {
   deleteUser(state: any,payload: any): void {
     state.users = state.users.filter((item: any) => item.id !== payload);
   },
+
+  updateUser(state: any, payload: any): void {
+    state.users = state.users.filter((item: any) => item.id !== payload.id);
+    state.users.push(payload);
+  },
 }
 export default mutations;

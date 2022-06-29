@@ -1,0 +1,21 @@
+.container-todos{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.todo{
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+.btn-delete{
+  background-color: red;
+  border: none;
+  padding: 5px 10px;
+  color:white;
+}
+.btn-edit{
+  background-color: darkcyan;
+  border: none;
+  padding: 5px 10px;
+}

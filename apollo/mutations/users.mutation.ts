@@ -24,7 +24,25 @@ mutation deleteUser($id: String!) {
 }
 `;
 
+export const updateUser = gql`
+  mutation updateUser(
+    $updateUserInput: UpdateUserInput!
+    $id: String!
+  ){
+    updateUser(
+      updateUserInput: $updateUserInput
+      id:$id
+    ){
+      id
+      userName
+      age
+      address
+    }
+  }
+`;
+
 export default {
     createUserNew,
-    deleteUser
+    deleteUser,
+    updateUser
 };
