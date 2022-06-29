@@ -1,5 +1,5 @@
 export const initState = (): any => ({
-  bookDetail: [],
+  users: [],
 });
 
 export default initState;

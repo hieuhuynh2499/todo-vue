@@ -1,20 +1,20 @@
 <template>
   <div class="container">
     <div class="todo-list">
-     <form class="form-sutmit">
+     <form class="form-sutmit"  @submit.prevent="createNewUser">
         <div class="container-input">
-          <input type="text" class="input">
+          <input v-model="newUserName"  type="text" class="input">
           <button class="form-btn">Add</button>
         </div>
      </form>
      <div class="contents">
        <ul class="container-todos">
-          <li v-for="item in bookDetail" :key="item.id" class="todo">
+          <li v-for="(item, index) in users" :key="item.id" class="todo">
             <div>
               {{ item.userName }}
             </div>
             <div>
-              <button class="btn-delete">delete</button>
+              <button @click="deleteUserfnc(index)" class="btn-delete">delete</button>
               <button class="btn-edit">edit</button>
             </div>
           </li>
@@ -28,28 +28,48 @@
 import { Component, Vue, State, Action } from "nuxt-property-decorator";
 @Component({})
 export default class ListTodo extends Vue {
-  @State('bookDetail', { namespace: 'posts' })
-  readonly bookDetail: string;
+  @State('users', { namespace: 'users' })
+  readonly users: Array<any>;
 
-  @Action('posts/getAllPosts')
-  readonly getAllPosts: Function;
+  @Action('users/getAllUsers')
+  readonly getAllUsers: Function;
+
+  @Action('users/createUserNew')
+  readonly createUserNew: Function;
+
+  @Action('users/deleteUser')
+  readonly deleteUser: Function;
+  
+  newUserName:string = ''
 
   mounted() {
     this.getallpost();
-    console.log(this.bookDetail)
   }
 
-  async getallpost() {
-    console.log(this)
-    this.getAllPosts(this);
+  getallpost() {
+    this.getAllUsers(this);
   }
 
+   deleteUserfnc(index) {
+    this.deleteUser({
+      vueIntance: this,
+      idUser: this.users[index].id,
+    })
+  }
+  
+  createNewUser() {
+    this.createUserNew({
+      vueIntance: this,
+      newUserName: this.newUserName,
+    })
+
+  }
 }
 
 </script>
 <style>
   .container {
-    height: 900px;
+    height: 600px;
     width: 100%;
     display: flex;
     justify-content: center;
